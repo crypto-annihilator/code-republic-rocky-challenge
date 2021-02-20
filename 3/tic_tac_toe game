@@ -1,0 +1,237 @@
+#include <iostream>
+bool victory = false;
+bool defeate = false;
+
+bool gameHorizontal(char**& ptr, char current) {
+
+    if ((ptr[0][0] == current) && (ptr[0][1] == current) && (ptr[0][2] == ' ')) {
+        ptr[0][2] = 'o';
+        return true;
+    } else if ((ptr[0][0] == current) && (ptr[0][1] == ' ') && (ptr[0][2] == current)) {
+        ptr[0][1] = 'o';
+        return true;
+    } else if ((ptr[0][0] == ' ') && (ptr[0][1] == current) && (ptr[0][2] == current)) {
+        ptr[0][0] = 'o';
+        return true;
+    } else if ((ptr[1][0] == current) && (ptr[1][1] == current) && (ptr[1][2] == ' ')) {
+        ptr[1][2] = 'o';
+        return true;
+    } else if ((ptr[1][0] == current) && (ptr[1][1] == ' ') && (ptr[1][2] == current)) {
+        ptr[1][1] = 'o';
+        return true;
+    } else if ((ptr[1][0] == ' ') && (ptr[1][1] == current) && (ptr[1][2] == current)) {
+        ptr[1][0] = 'o';
+        return true;
+    } else if ((ptr[2][0] == current) && (ptr[2][1] == current) && (ptr[2][2] == ' ')) {
+        ptr[2][2] = 'o';
+        return true;
+    } else if ((ptr[2][0] == current) && (ptr[2][1] == ' ') && (ptr[2][2] == current)) {
+        ptr[2][1] = 'o';
+        return true;
+    } else if ((ptr[2][0] == ' ') && (ptr[2][1] == current) && (ptr[2][2] == current)) {
+        ptr[2][0] = 'o';
+        return true;
+    }
+    return false;
+}
+
+bool gameVertically (char**& ptr, char current) {
+    if ((ptr[0][0] == current) && (ptr[1][0] == current) && (ptr[2][0] == ' ')) {
+        ptr[2][0] = 'o';
+        return true;
+    } else if ((ptr[0][0] == current) && (ptr[1][0] == ' ') && (ptr[2][0] == current)) {
+        ptr[1][0] = 'o';
+        return true;
+    } else if ((ptr[0][0] == ' ') && (ptr[1][0] == current) && (ptr[2][0] == current)) {
+        ptr[0][0] = 'o';
+        return true;
+    } else if ((ptr[0][1] == current) && (ptr[1][1] == current) && (ptr[2][1] == ' ')) {
+        ptr[2][1] = 'o';
+        return true;
+    } else if ((ptr[0][1] == current) && (ptr[1][1] == ' ') && (ptr[2][1] == current)) {
+        ptr[1][1] = 'o';
+        return true;
+    } else if ((ptr[0][1] == ' ') && (ptr[1][1] == current) && (ptr[2][1] == current)) {
+        ptr[0][1] = 'o';
+        return true;
+    } else if ((ptr[0][2] == current) && (ptr[1][2] == current) && (ptr[2][2] == ' ')) {
+        ptr[2][2] = 'o';
+        return true;
+    } else if ((ptr[0][2] == current) && (ptr[1][2] == ' ') && (ptr[2][2] == current)) {
+        ptr[1][2] = 'o';
+        return true;
+    } else if ((ptr[0][2] == ' ') && (ptr[1][2] == current) && (ptr[2][2] == current)) {
+        ptr[0][2] = 'o';
+        return true;
+    }
+    return false;
+}
+
+bool gameWithADiagonal(char**& ptr, char current)
+{
+    if ((ptr[0][0] == current) && (ptr[1][1] == current) && (ptr[2][2] == ' ')) {
+        ptr[2][2] = 'o';
+        return true;
+    } else if ((ptr[0][0] == current) && (ptr[1][1] == ' ') && (ptr[2][2] == current)) {
+        ptr[1][1] = 'o';
+        return true;
+    } else if ((ptr[0][0] == ' ') && (ptr[1][1] == current) && (ptr[2][2] == current)) {
+        ptr[0][0] = 'o';
+        return true;
+    } else if ((ptr[0][2] == current) && (ptr[1][1] == current) && (ptr[2][0] == ' ')) {
+        ptr[2][0] = 'o';
+        return true;
+    } else if ((ptr[0][2] == current) && (ptr[1][1] == ' ') && (ptr[2][0] == current)) {
+        ptr[1][1] = 'o';
+        return true;
+    } else if ((ptr[0][2] == ' ') && (ptr[1][1] == current) && (ptr[2][0] == current)) {
+        ptr[0][2] = 'o';
+        return true;
+    }
+    return false;
+}
+bool myVictiryGame (char**& ptr) {
+    if (!gameHorizontal(ptr, 'o')) {
+        if (!gameVertically(ptr, 'o')) {
+            if (!gameWithADiagonal(ptr, 'o')) {
+                return false;
+            }
+        }
+    }
+    defeate = true;
+    return true;
+}
+
+bool cancelYourVictory (char**& ptr) {
+    if (!gameHorizontal(ptr, 'x')) {
+        if (!gameVertically(ptr, 'x')) {
+            if (!gameWithADiagonal(ptr, 'x')) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool yourVictoryGame (char**& ptr) {
+    if ((ptr[0][0] != ptr[0][1]) || (ptr[0][0] != ptr[0][2]) || (ptr[0][0] != 'x')) {
+        if ((ptr[1][0] != ptr[1][1]) || (ptr[1][0] != ptr[1][2]) || (ptr[1][0] != 'x')) {
+            if ((ptr[2][0] != ptr[2][1]) || (ptr[2][0] != ptr[2][2]) || (ptr[2][0] != 'x')) {
+                if ((ptr[0][0] != ptr[1][0]) || (ptr[0][0] != ptr[2][0]) || (ptr[0][0] != 'x')) {
+                    if ((ptr[0][1] != ptr[1][1]) || (ptr[0][1] != ptr[2][1]) || (ptr[0][1] != 'x')) {
+                        if ((ptr[0][2] != ptr[1][2]) || (ptr[0][2] != ptr[2][2]) || (ptr[0][2] != 'x')) {
+                            if ((ptr[0][0] != ptr[1][1]) || (ptr[0][0] != ptr[2][2]) || (ptr[0][0] != 'x')) {
+                                if ((ptr[0][2] != ptr[1][1]) || (ptr[0][2] != ptr[2][0]) || (ptr[0][2] != 'x')) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    victory = true;
+    return true;
+}
+
+void myGame(char**& ptr) {
+
+        if (!myVictiryGame (ptr)) {
+           if (!cancelYourVictory (ptr)) {
+               for (int i = 0; i < 3; i++) {
+                   for (int j = 0; j < 3; j++) {
+                       if (ptr[i][j] == ' ') {
+                           ptr[i][j] = 'o';
+                           return;
+                       }
+                   }
+               }
+           }
+        }
+    return;
+}
+
+void printCurrentFigure (char**& ptr) {
+    std::cout << std::endl << "     0   1   2";
+    for (int i = 0; i < 3; i++) {
+        std::cout << "\n   _____________" << std::endl << i << "  | ";
+        for (int j = 0; j < 3; ++j) {
+            std::cout << ptr[i][j] << " | ";
+        }
+    }
+    std::cout << "\n   _____________" << std::endl;
+
+}
+
+void tic_tac_toe(char**& ptr, int size)
+{
+    int index1;
+    int index2;
+    for (int i = 0; i < size; ++i) {
+        std::cout << "Please enter the coordinates" << std::endl;
+        std::cout << "vertical index = ";
+        std::cin >> index1;
+        std::cout << "horizontal index = ";
+        std::cin >> index2;
+        while (ptr[index1][index2] != ' ') {
+         std::cout << "*******Please enter the coordinates again*******" << std::endl;
+        std::cout << "vertical index = ";
+        std::cin >> index1;
+        std::cout << "horizontal index = ";
+        std::cin >> index2;
+        }
+        ptr[index1][index2] = 'x';
+        std::cout << std::endl << "=========The result of your game=========" << std::endl;
+        printCurrentFigure(ptr);
+        if (yourVictoryGame(ptr)){
+             std::cout << "\n========VICTORY========" << std::endl;
+            return;
+        }
+        if (size == 5) {
+            return;
+        }
+        myGame(ptr);
+        std::cout << std::endl << "=========The result of my game=========" << std::endl;
+        printCurrentFigure(ptr);
+        if (defeate) {
+        std::cout << "\n========DEFEAT=========" << std::endl;
+            return;
+        }
+    }
+}
+
+int main()
+{
+    int size = 3;
+    char** ptr = new char*[size];
+    for (int i = 0; i < size; ++i) {
+        ptr[i] = new char[size];
+    }
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            ptr[i][j] = ' ';
+        }
+    }
+    printCurrentFigure (ptr);
+    char player;
+    int current_size;
+    std::cout << "Do you want to start the game? (Y/N)" << std::endl;
+    std::cin >> player;
+    if (player == 'Y') {
+        current_size = 5;
+    } else if (player == 'N') {
+        current_size = 4;
+        ptr[1][1] = 'o';
+        printCurrentFigure (ptr);
+    } else {
+        std::cout << "Wrong entry" << std::endl;
+        return 0;
+    }
+    tic_tac_toe (ptr, current_size);
+    if (!(defeate || victory)) {
+        std::cout << "\n----------UPS----------" << std::endl;
+    }
+
+    return 0;
+}
