@@ -2,8 +2,8 @@
 bool victory = false;
 bool defeate = false;
 
-bool gameHorizontal(char**& ptr, char current) {
-
+bool gameHorizontal(char**& ptr, char current) 
+{
     if ((ptr[0][0] == current) && (ptr[0][1] == current) && (ptr[0][2] == ' ')) {
         ptr[0][2] = 'o';
         return true;
@@ -90,6 +90,7 @@ bool gameWithADiagonal(char**& ptr, char current)
     }
     return false;
 }
+
 bool myVictiryGame (char**& ptr) {
     if (!gameHorizontal(ptr, 'o')) {
         if (!gameVertically(ptr, 'o')) {
@@ -232,6 +233,5 @@ int main()
     if (!(defeate || victory)) {
         std::cout << "\n----------UPS----------" << std::endl;
     }
-
     return 0;
 }
