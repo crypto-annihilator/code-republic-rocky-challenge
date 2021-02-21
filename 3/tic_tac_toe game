@@ -189,7 +189,7 @@ void tic_tac_toe(char**& ptr, int size)
              std::cout << "\n========VICTORY========" << std::endl;
             return;
         }
-        if (size == 5) {
+        if (i == 4) {
             return;
         }
         myGame(ptr);
