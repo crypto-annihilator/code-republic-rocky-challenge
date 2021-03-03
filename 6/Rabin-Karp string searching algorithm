@@ -8,7 +8,7 @@ int h_map(char ch)
     } else if (ch >= 97 && ch < 123) {
         return ch - 70;
     }
-    return 50;
+    return 0;
 }
 
 int powTenMulCharCode (int n, char ch)
@@ -26,9 +26,9 @@ int powTenMulCharCode (int n, char ch)
 
 
 
-int h_sum (std::string str) {
+long long h_sum (std::string str) {
     int size = str.size();
-    int sum = 0;
+    long long sum = 0;
     for (int i = 0; i < size; i++) {
         sum += (powTenMulCharCode(size - i - 1, str[i]));
     }
@@ -36,8 +36,8 @@ int h_sum (std::string str) {
 }
 
 void searching(std::string text, std::string path) {
-    int p_sum = h_sum(path);
-    int t_sum = h_sum(text.substr(0, path.size()));
+    long long p_sum = h_sum(path);
+    long long t_sum = h_sum(text.substr(0, path.size()));
     int p_size = path.size();
     int t_size = text.size();
     int size = t_size - p_size + 1;
