@@ -1,0 +1,61 @@
+#include <iostream>
+#include <string>
+
+int h_map(char ch)
+{
+    if (ch >= 65 && ch < 91) {
+        return ch - 64;
+    } else if (ch >= 97 && ch < 123) {
+        return ch - 70;
+    }
+    return 50;
+}
+
+int powTenMulCharCode (int n, char ch)
+{
+    if (n == 0) {
+        return h_map(ch);
+    }
+    int mul = 1;
+    while (n > 0) {
+        mul *= 10;
+        --n;
+    }
+    return (mul * h_map(ch));
+}
+
+
+
+int h_sum (std::string str) {
+    int size = str.size();
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += (powTenMulCharCode(size - i - 1, str[i]));
+    }
+    return sum;
+}
+
+void searching(std::string text, std::string path) {
+    int p_sum = h_sum(path);
+    int t_sum = h_sum(text.substr(0, path.size()));
+    int p_size = path.size();
+    int t_size = text.size();
+    int size = t_size - p_size + 1;
+    for (int i = 0; i < size; ++i) {
+        if (p_sum == t_sum) {
+            std::cout << "Pattern found at index " << i << std::endl;
+        }
+        t_sum = (((t_sum - powTenMulCharCode(p_size - 1, text[i])) * 10) + h_map(text[i + p_size]));
+    }
+}
+int main()
+{
+    std::string text;
+    std::cout << "text = ";
+    std::cin >> text;
+    std::string path;
+    std::cout << "path = ";
+    std::cin >> path;
+    searching (text, path);
+return 0;
+}
